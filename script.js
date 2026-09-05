@@ -11,10 +11,11 @@ function applyFilter(value){
 
 filters.forEach(btn=>btn.addEventListener('click',()=>applyFilter(btn.dataset.filter)));
 
-document.querySelectorAll('[data-jump-filter]').forEach(btn=>btn.addEventListener('click',()=>{
-  applyFilter(btn.dataset.jumpFilter);
-  document.querySelector('#gallery').scrollIntoView({behavior:'smooth'});
-}));
+const params=new URLSearchParams(window.location.search);
+const requestedCharacter=params.get('character');
+if(requestedCharacter && ['ellen','miyabi','shunguang'].includes(requestedCharacter)){
+  applyFilter(requestedCharacter);
+}
 
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
