@@ -13,25 +13,17 @@ filters.forEach(btn=>btn.addEventListener('click',()=>applyFilter(btn.dataset.fi
 
 const params=new URLSearchParams(window.location.search);
 const requestedCharacter=params.get('character');
-if(requestedCharacter && ['ellen','miyabi','shunguang'].includes(requestedCharacter)){
+const availableFilters=['ellen-red','ellen','miyabi'];
+if(requestedCharacter && availableFilters.includes(requestedCharacter)){
   applyFilter(requestedCharacter);
 }
 
 const observer=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      entry.target.classList.add('visible');
-      observer.unobserve(entry.target);
-    }
+    if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target);}
   });
 },{threshold:.12});
-
 document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 
 const glow=document.querySelector('.cursor-glow');
-if(glow){
-  window.addEventListener('pointermove',e=>{
-    glow.style.left=`${e.clientX}px`;
-    glow.style.top=`${e.clientY}px`;
-  });
-}
+if(glow){window.addEventListener('pointermove',e=>{glow.style.left=`${e.clientX}px`;glow.style.top=`${e.clientY}px`;});}
